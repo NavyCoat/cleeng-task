@@ -20,7 +20,16 @@ class Viewer
         $this->id = $id;
     }
 
-    public function haveAccesSToResource($resourceId): bool
+    public function haveAccessToResource($resourceId, ?AccessStrategy $accessStrategy = null): bool
+    {
+        if (!$accessStrategy) {
+            return $this->isResourceInEntitlements($resourceId);
+        }
+
+        return $accessStrategy->haveAccessToResource($resourceId, $this->entitlements);
+    }
+
+    private function isResourceInEntitlements($resourceId): bool
     {
         return in_array($resourceId, $this->entitlements, true);
     }

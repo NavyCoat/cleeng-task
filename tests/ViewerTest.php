@@ -3,13 +3,14 @@
 
 namespace Tests;
 
+use Cleeng\Entitlements\NoAccessStrategy;
 use Cleeng\Entitlements\Viewer;
 use PHPUnit\Framework\TestCase;
 
-class FooTest extends TestCase
+class ViewerTest extends TestCase
 {
 
-    public function testViewerHaveAccesToResourceThatIsHisEnitltement()
+    public function testViewerHaveAccessResourceThatIsHisEnitltement()
     {
         $viewer = new Viewer([1], 0);
 
@@ -27,4 +28,12 @@ class FooTest extends TestCase
         $this->assertFalse($val);
     }
 
+    public function testProvidingStrategyToViewerWillOverideDefaultPolicy()
+    {
+        $viewer = new Viewer([1], 0);
+
+        $val = $viewer->haveAccessToResource(1, new NoAccessStrategy());
+
+        $this->assertFalse($val);
+    }
 }
