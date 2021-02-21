@@ -12,7 +12,7 @@ class ViewerTest extends TestCase
 
     public function testViewerHaveAccessResourceThatIsHisEnitltement()
     {
-        $viewer = new Viewer([1], 0);
+        $viewer = new Viewer(0, [1]);
 
         $val = $viewer->haveAccessToResource(1);
 
@@ -21,7 +21,7 @@ class ViewerTest extends TestCase
 
     public function testViewerDoesNotHaveAccessToResourceThatIsNotHisEntitlement()
     {
-        $viewer = new Viewer([], 0);
+        $viewer = new Viewer(0, []);
 
         $val = $viewer->haveAccessToResource(1);
 
@@ -30,7 +30,7 @@ class ViewerTest extends TestCase
 
     public function testViewerHaveAccessResourceToAddedEntitlement()
     {
-        $viewer = new Viewer([], 0);
+        $viewer = new Viewer(0, []);
         $viewer->addEntitlement(1);
 
         $val = $viewer->haveAccessToResource(1);
@@ -40,7 +40,7 @@ class ViewerTest extends TestCase
 
     public function testProvidingStrategyToViewerWillOverideDefaultPolicy()
     {
-        $viewer = new Viewer([1], 0);
+        $viewer = new Viewer(0, [1]);
 
         $val = $viewer->haveAccessToResource(1, new NoAccessStrategy());
 

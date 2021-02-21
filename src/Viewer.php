@@ -11,13 +11,13 @@ class Viewer
 
     /**
      * Viewer constructor.
-     * @param array<int> $entitlements
      * @param int $id
+     * @param array<int> $entitlements
      */
-    public function __construct(array $entitlements, int $id)
+    public function __construct(int $id, array $entitlements = [])
     {
-        $this->entitlements = $entitlements;
         $this->id = $id;
+        $this->entitlements = $entitlements;
     }
 
     public function haveAccessToResource($resourceId, ?AccessStrategy $accessStrategy = null): bool

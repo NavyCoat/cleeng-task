@@ -8,7 +8,7 @@ class GraphResources
 {
     private array $array;
 
-    public function __construct(array $array)
+    public function __construct(array $array = [])
     {
         $this->array = $array;
     }
