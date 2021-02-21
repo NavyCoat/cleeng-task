@@ -29,6 +29,12 @@ class Viewer
         return $accessStrategy->haveAccessToResource($resourceId, $this->entitlements);
     }
 
+    public function addEntitlement(int $resourceId):void
+    {
+        //For simplication, i know that they can be doubled, but I think that refactor will be needed when i add expireAt.
+        $this->entitlements[] = $resourceId;
+    }
+
     private function isResourceInEntitlements($resourceId): bool
     {
         return in_array($resourceId, $this->entitlements, true);

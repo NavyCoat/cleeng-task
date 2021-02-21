@@ -28,6 +28,16 @@ class ViewerTest extends TestCase
         $this->assertFalse($val);
     }
 
+    public function testViewerHaveAccessResourceToAddedEntitlement()
+    {
+        $viewer = new Viewer([], 0);
+        $viewer->addEntitlement(1);
+
+        $val = $viewer->haveAccessToResource(1);
+
+        $this->assertTrue($val);
+    }
+
     public function testProvidingStrategyToViewerWillOverideDefaultPolicy()
     {
         $viewer = new Viewer([1], 0);
