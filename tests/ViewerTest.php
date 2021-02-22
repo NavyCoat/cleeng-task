@@ -3,8 +3,8 @@
 
 namespace Tests;
 
-use Cleeng\Entitlements\Viewer\ResourcesAccessStrategy;
-use Cleeng\Entitlements\Viewer\Viewer;
+use Cleeng\Entitlements\Domain\Viewer\ResourcesAccessStrategy;
+use Cleeng\Entitlements\Domain\Viewer\Viewer;
 use PHPUnit\Framework\TestCase;
 
 class ViewerTest extends TestCase

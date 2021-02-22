@@ -2,25 +2,25 @@
 
 namespace Cleeng\Entitlements\Representation\Rest;
 
-use Cleeng\Entitlements\Resources\GraphResources;
+use Cleeng\Entitlements\Application\Repository\ResourcesRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResourcesController
 {
-    private GraphResources $resources;
+    private ResourcesRepository $resources;
 
-    /**
-     * /resources GET
-     * /resources/{id} GET,PUT
-     */
+    public function __construct(ResourcesRepository $resources)
+    {
+        $this->resources = $resources;
+    }
+
     public function getResources(): Response
     {
-        //It can returns paginated view of resources
-
         $response = new JsonResponse(
             [
+                'resources' => $this->resources->getAll(),
                 'actions' => [
                     'View specific resource' => [
                         'method' => 'GET',
@@ -43,10 +43,11 @@ class ResourcesController
 
     public function getResource(Request $request): Response
     {
-        //storage -> get resource representation
+        $id = 100;
 
         $response = new JsonResponse(
             [
+                $this->resources->getById($id),
                 'actions' => [
                     'Upsert Resource' => [
                         'method' => 'PUT',
@@ -71,12 +72,7 @@ class ResourcesController
 
     public function putResource(Request $request): Response
     {
-        $data = $request->toArray();
-        $this->resources->addResource(
-            $data['id'],
-            $data['children'],
-            $data['parents'],
-        );
+        //useCase
 
         return new Response(null, Response::HTTP_CREATED);
     }

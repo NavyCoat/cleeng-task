@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Cleeng\Entitlements\Viewer;
+namespace Cleeng\Entitlements\Domain\Viewer;
 
 
 class Viewer

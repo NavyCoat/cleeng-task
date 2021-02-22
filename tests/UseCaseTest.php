@@ -3,9 +3,9 @@
 
 namespace Tests;
 
-use Cleeng\Entitlements\Viewer\Viewer;
-use Cleeng\Entitlements\Resources\GraphResources;
-use Cleeng\Entitlements\Resources\MultiLayerStrategyResources;
+use Cleeng\Entitlements\Application\Resources\MultiLayerStrategyResources;
+use Cleeng\Entitlements\Domain\Viewer\Viewer;
+use Cleeng\Entitlements\Infrastructure\InMemoryGraphResources;
 use PHPUnit\Framework\TestCase;
 
 class UseCaseTest extends TestCase
@@ -29,7 +29,7 @@ class UseCaseTest extends TestCase
 
     public function testSilverPackageCase()
     {
-        $resources = new GraphResources(
+        $resources = new InMemoryGraphResources(
             [
                 1 => [2, 3], //Silver Package with two categories id:2 id:3
                 2 => [5], //Category available in Silver Package
@@ -49,7 +49,7 @@ class UseCaseTest extends TestCase
 
     public function testGoldPackageCase()
     {
-        $resources = new GraphResources(
+        $resources = new InMemoryGraphResources(
             [
                 1 => [2,3], //Represents Author with id 1 and his videos [2,3]
             ]

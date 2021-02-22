@@ -1,18 +1,18 @@
 <?php
 
 
-namespace Cleeng\Entitlements\Resources;
+namespace Cleeng\Entitlements\Application\Resources;
 
 
-use Cleeng\Entitlements\Viewer\ResourcesAccessStrategy;
+use Cleeng\Entitlements\Domain\Viewer\ResourcesAccessStrategy;
 
 class MultiLayerStrategyResources implements ResourcesAccessStrategy
 {
-    private GraphResources $graphResource;
+    private Resources $resources;
 
-    public function __construct(GraphResources $graphResource)
+    public function __construct(Resources $graphResource)
     {
-        $this->graphResource = $graphResource;
+        $this->resources = $graphResource;
     }
 
     public function haveAccessToResource($resourceId, array $entitlements): bool
@@ -20,6 +20,6 @@ class MultiLayerStrategyResources implements ResourcesAccessStrategy
         //Hmm I wanted to remove aspect of "Entitlements" from graphResource,
         //But I think that specific implementations can gain additional performance when providing to them
         //all data at once.
-        return $this->graphResource->isResourceAvailable($resourceId, $entitlements);
+        return $this->resources->isResourceAvailable($resourceId, $entitlements);
     }
 }
