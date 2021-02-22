@@ -1,5 +1,6 @@
 <?php
 
+namespace Cleeng\Entitlements\Representation\Rest;
 
 interface RestController
 {

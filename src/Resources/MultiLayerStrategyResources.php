@@ -1,10 +1,12 @@
 <?php
 
 
-namespace Cleeng\Entitlements;
+namespace Cleeng\Entitlements\Resources;
 
 
-class MultiLayerStrategy implements AccessStrategy
+use Cleeng\Entitlements\Viewer\ResourcesAccessStrategy;
+
+class MultiLayerStrategyResources implements ResourcesAccessStrategy
 {
     private GraphResources $graphResource;
 
@@ -18,6 +20,6 @@ class MultiLayerStrategy implements AccessStrategy
         //Hmm I wanted to remove aspect of "Entitlements" from graphResource,
         //But I think that specific implementations can gain additional performance when providing to them
         //all data at once.
-        return $this->graphResource->isResourceAvailableToReach($resourceId, $entitlements);
+        return $this->graphResource->isResourceAvailable($resourceId, $entitlements);
     }
 }

@@ -3,9 +3,9 @@
 
 namespace Tests;
 
-use Cleeng\Entitlements\GraphResources;
-use Cleeng\Entitlements\MultiLayerStrategy;
-use Cleeng\Entitlements\Viewer;
+use Cleeng\Entitlements\Viewer\Viewer;
+use Cleeng\Entitlements\Resources\GraphResources;
+use Cleeng\Entitlements\Resources\MultiLayerStrategyResources;
 use PHPUnit\Framework\TestCase;
 
 class UseCaseTest extends TestCase
@@ -37,7 +37,7 @@ class UseCaseTest extends TestCase
                 4 => [7] //Category not available in Silver Package
             ]
         );
-        $strategy = new MultiLayerStrategy($resources);
+        $strategy = new MultiLayerStrategyResources($resources);
 
         $viewer = new Viewer(1);
         $viewer->addEntitlement(1);
@@ -54,7 +54,7 @@ class UseCaseTest extends TestCase
                 1 => [2,3], //Represents Author with id 1 and his videos [2,3]
             ]
         );
-        $strategy = new MultiLayerStrategy($resources);
+        $strategy = new MultiLayerStrategyResources($resources);
 
         $viewer = new Viewer(1);
         $viewer->addEntitlement(1);

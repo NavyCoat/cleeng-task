@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Cleeng\Entitlements;
+namespace Cleeng\Entitlements\Viewer;
 
 
-interface AccessStrategy
+interface ResourcesAccessStrategy
 {
     public function haveAccessToResource($resourceId, array $entitlements): bool;
 }

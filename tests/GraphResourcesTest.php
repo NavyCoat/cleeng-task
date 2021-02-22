@@ -3,7 +3,7 @@
 
 namespace Tests;
 
-use Cleeng\Entitlements\GraphResources;
+use Cleeng\Entitlements\Resources\GraphResources;
 use PHPUnit\Framework\TestCase;
 
 class GraphResourcesTest extends TestCase
@@ -19,14 +19,14 @@ class GraphResourcesTest extends TestCase
     ) {
         foreach ($shouldHaveAccessTo as $resourceId) {
             self::assertTrue(
-                $resources->isResourceAvailableToReach($resourceId, $entitlements),
+                $resources->isResourceAvailable($resourceId, $entitlements),
                 sprintf('Failed to assert that resource "%s" is related to entitlements provided in test.', $resourceId)
             );
         }
 
         foreach ($shouldNotHaveAccessTo as $resourceId) {
             self::assertFalse(
-                $resources->isResourceAvailableToReach($resourceId, $entitlements),
+                $resources->isResourceAvailable($resourceId, $entitlements),
                 sprintf(
                     'Failed to assert that resource "%s" is not related to entitlements provided in test.',
                     $resourceId

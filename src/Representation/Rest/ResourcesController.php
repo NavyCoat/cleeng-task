@@ -1,8 +1,8 @@
 <?php
 
-namespace Cleeng\Entitlements\Rest;
+namespace Cleeng\Entitlements\Representation\Rest;
 
-use Cleeng\Entitlements\GraphResources;
+use Cleeng\Entitlements\Resources\GraphResources;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -78,20 +78,6 @@ class ResourcesController
             $data['parents'],
         );
 
-        $response = new JsonResponse(
-            [
-                'actions' => [
-                    'Upsert resource' => [
-                        'method' => 'PUT',
-                        'href' => '/resources/{id}',
-                        'desc' => 'Lorem ipsum dolor sit',
-                    ],
-                ],
-            ]
-        );
-
-        $response->setCache([]);
-
-        return $response;
+        return new Response(null, Response::HTTP_CREATED);
     }
 }

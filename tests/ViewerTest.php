@@ -3,8 +3,8 @@
 
 namespace Tests;
 
-use Cleeng\Entitlements\NoAccessStrategy;
-use Cleeng\Entitlements\Viewer;
+use Cleeng\Entitlements\Viewer\ResourcesAccessStrategy;
+use Cleeng\Entitlements\Viewer\Viewer;
 use PHPUnit\Framework\TestCase;
 
 class ViewerTest extends TestCase
@@ -42,7 +42,15 @@ class ViewerTest extends TestCase
     {
         $viewer = new Viewer(0, [1]);
 
-        $val = $viewer->haveAccessToResource(1, new NoAccessStrategy());
+        $strategy = $this->createMock(ResourcesAccessStrategy::class);
+        $strategy
+            ->expects($this->once())
+            ->method('haveAccessToResource')
+            ->with(1,[1])
+            ->willReturn(false);
+
+
+        $val = $viewer->haveAccessToResource(1, $strategy);
 
         $this->assertFalse($val);
     }
