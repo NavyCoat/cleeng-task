@@ -69,11 +69,4 @@ class ResourcesController
 
         return $response;
     }
-
-    public function putResource(Request $request): Response
-    {
-        //useCase
-
-        return new Response(null, Response::HTTP_CREATED);
-    }
 }

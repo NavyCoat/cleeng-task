@@ -15,7 +15,7 @@ class AddResource
         $this->resources = $resources;
     }
 
-    public function  __invoke($id, array $children = [], array $parents = []): void
+    public function  run($id, array $children = [], array $parents = []): void
     {
         $this->resources->addResource($id, $children, $parents);
     }

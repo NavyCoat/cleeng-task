@@ -20,7 +20,7 @@ class ApplicationUseCasesTest extends TestCase
         $addEntitlementToViewer = new AddEntitlementToViewer($viewers);
 
         //When
-        $addEntitlementToViewer(10, 1);
+        $addEntitlementToViewer->run(10, 1);
 
         //Then
         $viewer = $viewers->findOrCreate(1);
@@ -39,7 +39,7 @@ class ApplicationUseCasesTest extends TestCase
         $checkViewerHaveAccessToResource = new CheckViewerHaveAccessToResource($viewers, $resources);
 
         //When
-        $result = $checkViewerHaveAccessToResource(1, 10);
+        $result = $checkViewerHaveAccessToResource->run(1, 10);
 
         //Then
         self::assertTrue($result);
@@ -52,7 +52,7 @@ class ApplicationUseCasesTest extends TestCase
         $addResource = new AddResource($resources);
 
         //When
-        $addResource(100);
+        $addResource->run(100);
 
         //Then
         self::assertNotNull($resources->getById(100));

@@ -19,7 +19,7 @@ class CheckViewerHaveAccessToResource
         $this->resources = $resources;
     }
 
-    public function __invoke(int $viewerId, int $resourceId): bool
+    public function run(int $viewerId, int $resourceId): bool
     {
         $strategy = new MultiLayerStrategyResources($this->resources);
         $viewer = $this->viewers->findOrCreate($viewerId);

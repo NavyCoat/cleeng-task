@@ -15,6 +15,6 @@ interface RestController
      * /viewers/{id}/entitlements/{id} GET, PUT
      *
      * /viewers/{id}/available-resources/
-     * /viewers/{id}/available-resources/{id} - maybe redirect to payment when resource not available?
+     * /viewers/{id}/available-resources/{id}
      */
 }

@@ -15,7 +15,7 @@ class AddEntitlementToViewer
         $this->viewers = $viewers;
     }
 
-    public function  __invoke(int $entitlementId, int $viewerId): void
+    public function  run(int $entitlementId, int $viewerId): void
     {
         $viewer = $this->viewers->findOrCreate($viewerId);
 
