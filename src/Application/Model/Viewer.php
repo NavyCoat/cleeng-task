@@ -2,7 +2,9 @@
 
 namespace Cleeng\Entitlements\Application\Model;
 
-class Viewer implements \JsonSerializable
+use JsonSerializable;
+
+class Viewer implements JsonSerializable
 {
     private int $id;
     private array $entitlements;
@@ -30,7 +32,7 @@ class Viewer implements \JsonSerializable
         return $this->entitlements;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->getId(),

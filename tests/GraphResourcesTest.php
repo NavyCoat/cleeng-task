@@ -4,6 +4,7 @@
 namespace Tests;
 
 use Cleeng\Entitlements\Application\Resources\Resources;
+use Cleeng\Entitlements\Domain\Entitlement;
 use Cleeng\Entitlements\Infrastructure\InMemoryGraphResources;
 use PHPUnit\Framework\TestCase;
 
@@ -41,13 +42,13 @@ class GraphResourcesTest extends TestCase
         return [
             [
                 'resources' => new InMemoryGraphResources([1 => [2, 3, 4], 2 => [5, 6], 5 => [7, 8]]),
-                'entitlements' => [2],
+                'entitlements' => [new Entitlement(2)],
                 'shouldHaveAccessTo' => [2, 5, 6, 7, 8],
                 'shouldNotHaveAccessTo' => [3, 4],
             ],
             [
                 'resources' => $this->createResourceUsingAddResource(),
-                'entitlements' => [2, 5],
+                'entitlements' => [new Entitlement(2), new Entitlement(5)],
                 'shouldHaveAccessTo' => [2, 5, 6, 7, 8],
                 'shouldNotHaveAccessTo' => [3, 4],
             ],

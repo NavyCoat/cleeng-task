@@ -4,7 +4,7 @@
 namespace Cleeng\Entitlements\Application\Repository;
 
 
-use Cleeng\Entitlements\Domain\Viewer\Viewer;
+use Cleeng\Entitlements\Application\Model\Viewer;
 
 interface ViewerRepository
 {

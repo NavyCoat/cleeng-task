@@ -13,6 +13,8 @@ class ResourcesControllerTest extends TestCase
 
     public function testGetResources()
     {
+        $this->markTestSkipped('Use for testing Response');
+
         $resources = new InMemoryGraphResources();
         $resources->addResource(1);
         $resources->addResource(2, [3]);

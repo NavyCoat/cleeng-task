@@ -4,6 +4,7 @@ namespace Cleeng\Entitlements\Representation\Rest;
 
 use Cleeng\Entitlements\Application\Repository\ViewerRepository;
 use Cleeng\Entitlements\Application\UseCase\CheckViewerHaveAccessToResource;
+use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,11 @@ class ViewersController
     private ViewerRepository $viewers;
     private CheckViewerHaveAccessToResource $checkViewerHaveAccessToResource;
 
+    /**
+     * /viewers/
+     * @param Request $request
+     * @return Response
+     */
     public function getViewers(Request $request): Response
     {
         $response = new JsonResponse(
@@ -45,6 +51,7 @@ class ViewersController
 
     /**
      * /viewers/{id}/available-resources/{id}
+     * @param Request $request
      * @return Response
      */
     public function getAvailableResource(Request $request): Response
@@ -53,7 +60,7 @@ class ViewersController
         $viewerId = 1;
         $resourceId = 100;
 
-        $result = $this->checkViewerHaveAccessToResource->run($viewerId, $resourceId);
+        $result = $this->checkViewerHaveAccessToResource->run($viewerId, $resourceId, new DateTime());
 
         if (!$result) {
             return new Response(null, Response::HTTP_FORBIDDEN);

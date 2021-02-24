@@ -4,13 +4,15 @@
 namespace Cleeng\Entitlements\Infrastructure;
 
 
-use Cleeng\Entitlements\Domain\Viewer\Viewer;
-use Cleeng\Entitlements\Domain\Viewer\ViewerRepository;
+use Cleeng\Entitlements\Application\Model\Viewer as ApplicationViewer;
+use Cleeng\Entitlements\Application\Repository\ViewerRepository as ApplicationViewerRepository;
+use Cleeng\Entitlements\Domain\Viewer;
+use Cleeng\Entitlements\Domain\ViewerRepository;
 use ReflectionObject;
 
-class InMemoryViewerRepository implements ViewerRepository
+class InMemoryViewerRepository implements ViewerRepository, ApplicationViewerRepository
 {
-    private $viewers = [];
+    private array $viewers = [];
 
     public function getById($id): Viewer
     {
@@ -44,5 +46,17 @@ class InMemoryViewerRepository implements ViewerRepository
         $p->setAccessible(true);
 
         return $p->getValue($viewer);
+    }
+
+    /////////////////////////////////////////////
+
+    public function getAll(): array
+    {
+        $result = [];
+        foreach ($this->viewers as $viewer) {
+            $result = new ApplicationViewer($this->getIdForViewer($viewer));
+        }
+
+        return $result;
     }
 }

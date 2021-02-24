@@ -2,7 +2,9 @@
 
 namespace Cleeng\Entitlements\Application\Model;
 
-class Resource implements \JsonSerializable
+use JsonSerializable;
+
+class Resource implements JsonSerializable
 {
     private int $id;
     private array $children;

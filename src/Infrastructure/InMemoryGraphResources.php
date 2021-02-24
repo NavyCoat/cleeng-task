@@ -7,6 +7,7 @@ namespace Cleeng\Entitlements\Infrastructure;
 use Cleeng\Entitlements\Application\Model\Resource;
 use Cleeng\Entitlements\Application\Repository\ResourcesRepository;
 use Cleeng\Entitlements\Application\Resources\Resources;
+use Cleeng\Entitlements\Domain\Entitlement;
 
 class InMemoryGraphResources implements Resources, ResourcesRepository
 {
@@ -38,35 +39,55 @@ class InMemoryGraphResources implements Resources, ResourcesRepository
         return array_key_exists($resourceId, $this->array);
     }
 
+    /**
+     * @param int $resourceId
+     * @param Entitlement[] $entitlements
+     * @return bool
+     */
     public function isResourceAvailable(int $resourceId, array $entitlements): bool
     {
-        if ($this->isResourceAnEntitlement($resourceId, $entitlements)) {
-            return true;
+        return $this->foo($entitlements, $resourceId);
+    }
+
+    /**
+     * @param Entitlement[] $entitlements
+     * @param int $resourceId
+     * @return bool
+     */
+    private function foo(array $entitlements, int $resourceId): bool
+    {
+        $resourceIds = [];
+        foreach ($entitlements as $entitlement) {
+            $resourceIds[] = $entitlement->getResourceId();
         }
 
-        return $this->findInResources($entitlements, $resourceId);
+        return $this->isResourceReachableUsingEntitlementResourceId($resourceIds, $resourceId);
     }
 
-    private function isResourceAnEntitlement(int $resourceId, array $entitlementIds): bool
+    /**
+     * @param array $resourceIds
+     * @param int $resourceId
+     * @return bool
+     */
+    private function isResourceReachableUsingEntitlementResourceId(array $resourceIds, int $resourceId): bool
     {
-        return in_array($resourceId, $entitlementIds, true);
-    }
-
-    private function findInResources(array $entitlementIds, int $resourceId): bool
-    {
-        foreach ($entitlementIds as $entitlementId) {
-            if (!array_key_exists($entitlementId, $this->array)) {
+        foreach ($resourceIds as $relatedResourceId) {
+            if ($this->doesResourceExist($relatedResourceId)) {
                 continue;
             }
 
-            $relatedResources = $this->array[$entitlementId];
+            if ($resourceId === $relatedResourceId) {
+                return true;
+            }
+
+            $relatedResources = $this->array[$relatedResourceId];
             if ($relatedResources) {
                 foreach ($relatedResources as $relatedResourceID) {
                     if ($resourceId === $relatedResourceID) {
                         return true;
                     }
 
-                    if ($this->findInResources($relatedResources, $resourceId)) {
+                    if ($this->isResourceReachableUsingEntitlementResourceId($relatedResources, $resourceId)) {
                         return true;
                     }
                 }
@@ -76,7 +97,7 @@ class InMemoryGraphResources implements Resources, ResourcesRepository
         return false;
     }
 
-    //PoC było wygodniej tutaj inmemory
+    //PoC było wygodniej wykorzystać to inmemory do view modelu
     public function getById(int $id): Resource
     {
         $parents = [];
@@ -99,5 +120,20 @@ class InMemoryGraphResources implements Resources, ResourcesRepository
         }
 
         return $resources;
+    }
+
+    private function doesResourceExist(int $resourceId): bool
+    {
+        return !array_key_exists($resourceId, $this->array);
+    }
+
+    /**
+     * @param int $resourceId
+     * @param Entitlement $entitlement
+     * @return bool
+     */
+    private function isResourceAnEntitlement(int $resourceId, Entitlement $entitlement): bool
+    {
+        return $resourceId === $entitlement->getResourceId();
     }
 }

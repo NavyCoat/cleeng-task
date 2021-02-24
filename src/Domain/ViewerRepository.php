@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Cleeng\Entitlements\Domain\Viewer;
+namespace Cleeng\Entitlements\Domain;
 
 
 interface ViewerRepository

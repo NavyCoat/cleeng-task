@@ -4,7 +4,7 @@
 namespace Cleeng\Entitlements\Application\UseCase;
 
 
-use Cleeng\Entitlements\Domain\Viewer\ViewerRepository;
+use Cleeng\Entitlements\Domain\ViewerRepository;
 
 class AddEntitlementToViewer
 {
